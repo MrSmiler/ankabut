@@ -67,7 +67,8 @@ def move(pre , new):
 
 
 if __name__ == '__main__':
-    move('/home/mrsmiler/mohsen.txt','/home/mrsmiler/Downloads/mohsen.txt')
+    #test 
+    pass
 
 
 
