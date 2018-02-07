@@ -1,0 +1,113 @@
+# -*- coding: utf-8 -*-
+
+# Form implementation generated from reading ui file 'download_finished_ui.ui'
+#
+# Created by: PyQt5 UI code generator 5.9
+#
+# WARNING! All changes made in this file will be lost!
+
+from PyQt5 import QtCore, QtGui, QtWidgets
+
+class Ui_Dialog(object):
+    def setupUi(self, Dialog):
+        Dialog.setObjectName("Dialog")
+        Dialog.resize(549, 280)
+        palette = QtGui.QPalette()
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Base, brush)
+        brush = QtGui.QBrush(QtGui.QColor(134, 191, 221))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Window, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Base, brush)
+        brush = QtGui.QBrush(QtGui.QColor(134, 191, 221))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Window, brush)
+        brush = QtGui.QBrush(QtGui.QColor(134, 191, 221))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Base, brush)
+        brush = QtGui.QBrush(QtGui.QColor(134, 191, 221))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Window, brush)
+        Dialog.setPalette(palette)
+        self.frame = QtWidgets.QFrame(Dialog)
+        self.frame.setGeometry(QtCore.QRect(10, 10, 521, 201))
+        self.frame.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame.setObjectName("frame")
+        self.fileSize_la = QtWidgets.QLabel(self.frame)
+        self.fileSize_la.setGeometry(QtCore.QRect(70, 80, 101, 17))
+        self.fileSize_la.setObjectName("fileSize_la")
+        self.link_le = QtWidgets.QLineEdit(self.frame)
+        self.link_le.setGeometry(QtCore.QRect(10, 120, 501, 21))
+        self.link_le.setObjectName("link_le")
+        self.label = QtWidgets.QLabel(self.frame)
+        self.label.setGeometry(QtCore.QRect(10, 30, 91, 17))
+        self.label.setObjectName("label")
+        self.label_6 = QtWidgets.QLabel(self.frame)
+        self.label_6.setGeometry(QtCore.QRect(10, 150, 61, 17))
+        self.label_6.setObjectName("label_6")
+        self.label_3 = QtWidgets.QLabel(self.frame)
+        self.label_3.setGeometry(QtCore.QRect(10, 80, 61, 17))
+        self.label_3.setObjectName("label_3")
+        self.label_5 = QtWidgets.QLabel(self.frame)
+        self.label_5.setGeometry(QtCore.QRect(10, 100, 51, 17))
+        self.label_5.setObjectName("label_5")
+        self.saveAs_le = QtWidgets.QLineEdit(self.frame)
+        self.saveAs_le.setGeometry(QtCore.QRect(10, 170, 501, 21))
+        self.saveAs_le.setObjectName("saveAs_le")
+        self.fileName_le = QtWidgets.QLineEdit(self.frame)
+        self.fileName_le.setGeometry(QtCore.QRect(10, 50, 501, 21))
+        self.fileName_le.setObjectName("fileName_le")
+        self.label_2 = QtWidgets.QLabel(self.frame)
+        self.label_2.setGeometry(QtCore.QRect(10, 0, 191, 17))
+        font = QtGui.QFont()
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_2.setFont(font)
+        self.label_2.setObjectName("label_2")
+        self.frame_2 = QtWidgets.QFrame(Dialog)
+        self.frame_2.setGeometry(QtCore.QRect(10, 220, 521, 47))
+        self.frame_2.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_2.setObjectName("frame_2")
+        self.horizontalLayout = QtWidgets.QHBoxLayout(self.frame_2)
+        self.horizontalLayout.setObjectName("horizontalLayout")
+        self.openFile_pb = QtWidgets.QPushButton(self.frame_2)
+        self.openFile_pb.setObjectName("openFile_pb")
+        self.horizontalLayout.addWidget(self.openFile_pb)
+        self.openFolder_pb = QtWidgets.QPushButton(self.frame_2)
+        self.openFolder_pb.setObjectName("openFolder_pb")
+        self.horizontalLayout.addWidget(self.openFolder_pb)
+        self.ok_pb = QtWidgets.QPushButton(self.frame_2)
+        self.ok_pb.setObjectName("ok_pb")
+        self.horizontalLayout.addWidget(self.ok_pb)
+
+        self.retranslateUi(Dialog)
+        QtCore.QMetaObject.connectSlotsByName(Dialog)
+
+    def retranslateUi(self, Dialog):
+        _translate = QtCore.QCoreApplication.translate
+        Dialog.setWindowTitle(_translate("Dialog", "Download Finished"))
+        self.fileSize_la.setText(_translate("Dialog", "0"))
+        self.label.setText(_translate("Dialog", "File Name :"))
+        self.label_6.setText(_translate("Dialog", "Save as :"))
+        self.label_3.setText(_translate("Dialog", "Size :"))
+        self.label_5.setText(_translate("Dialog", "Link :"))
+        self.label_2.setText(_translate("Dialog", "Download Completed"))
+        self.openFile_pb.setText(_translate("Dialog", "Open File"))
+        self.openFolder_pb.setText(_translate("Dialog", "Open Folder"))
+        self.ok_pb.setText(_translate("Dialog", "Ok"))
+
+
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    Dialog = QtWidgets.QDialog()
+    ui = Ui_Dialog()
+    ui.setupUi(Dialog)
+    Dialog.show()
+    sys.exit(app.exec_())
+
