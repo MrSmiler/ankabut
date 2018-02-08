@@ -1,7 +1,7 @@
 
 from ankabot.gui.download_finished_ui import Ui_Dialog
 from ankabot.scripts import initialization as init
-import ankabot.scripts.usefultools 
+from ankabot.scripts import usefultools 
 from PyQt5 import QtWidgets 
 import os
 
