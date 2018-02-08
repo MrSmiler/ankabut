@@ -1,7 +1,26 @@
 from setuptools import setup
 
+try:
+    import PyQt5
+except ImportError:
+    print('pyqt5 is not found')
+else:
+    print('pyqt5 was found ')
+
+try:
+    import bs4
+except ImportError:
+    print('bs4 is not found')
+else:
+    print('bs4 was found ')
 
 
+try:
+    import requests
+except ImportError:
+    print('requests is not found')
+else:
+    print('requests was found ')
 
 
 setup(
