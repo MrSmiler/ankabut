@@ -3,20 +3,20 @@
 
 from ankabot.scripts.ankabot_config import get_exts , get_query , get_langs ,config_check ,get_advanced_query
 from PyQt5.QtCore import QThread, QTime, pyqtSignal, pyqtSlot, QObject, Qt, QSize
-from multiprocessing import Process , Queue , freeze_support
-from ankabot.gui.mainwindow_ui import Ui_MainWindow
 from ankabot.scripts.download_finished import DownloadFinished
 from ankabot.scripts.download_progress import DownloadProgress
-from ankabot.scripts.ask_download import AskDialog
-from urllib.parse import unquote
-from ankabot.scripts.search_engine import Google
-from PyQt5.QtGui import QMovie
+from multiprocessing import Process , Queue , freeze_support
+from ankabot.gui.mainwindow_ui import Ui_MainWindow
 from ankabot.scripts import initialization as init
+from ankabot.scripts.ask_download import AskDialog
+from ankabot.scripts.search_engine import Google
 from ankabot.scripts.settings import Settings
 from ankabot.scripts.download import Download
-from PyQt5 import  QtWidgets
 from ankabot.scripts.add_link import AddLink
 from ankabot.scripts.scraper import Scraper
+from urllib.parse import unquote
+from PyQt5.QtGui import QMovie
+from PyQt5 import  QtWidgets
 import platform
 import time
 import json

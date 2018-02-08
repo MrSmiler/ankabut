@@ -1,8 +1,8 @@
 
 from ankabot.gui.download_finished_ui import Ui_Dialog
 from ankabot.scripts import initialization as init
-from PyQt5 import QtWidgets 
 import ankabot.scripts.usefultools 
+from PyQt5 import QtWidgets 
 import os
 
 class DownloadFinished(QtWidgets.QDialog , Ui_Dialog ):
