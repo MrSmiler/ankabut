@@ -75,7 +75,7 @@
    </palette>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Download Progress</string>
   </property>
   <widget class="QFrame" name="frame">
    <property name="geometry">
