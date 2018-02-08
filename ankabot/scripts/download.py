@@ -1,8 +1,8 @@
 # this is the download manager engine
 
 from urllib.parse import urlunparse , unquote
-import initialization as init
-import usefultools 
+import ankabot.scripts.initialization as init
+import ankabot.scripts.usefultools 
 import requests 
 import time
 import json

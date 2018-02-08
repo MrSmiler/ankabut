@@ -1,9 +1,9 @@
 
 from PyQt5.QtCore import QThread , pyqtSignal , pyqtSlot
 from PyQt5.QtWidgets import QDialog , QApplication
-from download_progress import DownloadProgress
-from ask_download_ui import Ui_Dialog
-from download import Download
+from ankabot.scripts.download_progress import DownloadProgress
+from ankabot.gui.ask_download_ui import Ui_Dialog
+from ankabot.scripts.download import Download
 from PyQt5 import QtGui
 import sys 
 import re

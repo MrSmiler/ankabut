@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-import usefultools
+from ankabot.scripts import usefultools
 import platform
 import os
 

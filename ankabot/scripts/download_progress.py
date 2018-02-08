@@ -1,11 +1,11 @@
 
 from PyQt5.QtCore import QThread , pyqtSignal , pyqtSlot
-from download_progress_ui import Ui_Dialog
-from download_finished import DownloadFinished
-from usefultools import StopWatch , Timer
+from ankabot.gui.download_progress_ui import Ui_Dialog
+from ankabot.scripts.download_finished import DownloadFinished
+from ankabot.scripts.usefultools import StopWatch , Timer
 from urllib.parse import unquote
-from download import Download
-import initialization as init
+from ankabot.scripts.download import Download
+from ankabot.scripts import initialization as init
 from PyQt5 import QtWidgets 
 import json
 import time

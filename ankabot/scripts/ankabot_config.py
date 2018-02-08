@@ -1,4 +1,4 @@
-import initialization as init
+from ankabot.scripts import initialization as init
 import json
 import os
 

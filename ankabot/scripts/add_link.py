@@ -1,5 +1,5 @@
 
-from add_link_ui import Ui_Dialog
+from ankabot.gui.add_link_ui import Ui_Dialog
 from PyQt5 import QtWidgets
 
 

@@ -1,22 +1,22 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
+from ankabot.scripts.ankabot_config import get_exts , get_query , get_langs ,config_check ,get_advanced_query
 from PyQt5.QtCore import QThread, QTime, pyqtSignal, pyqtSlot, QObject, Qt, QSize
 from multiprocessing import Process , Queue , freeze_support
-from ankabot_config import get_exts , get_query , get_langs ,config_check ,get_advanced_query
-from download_finished import DownloadFinished
-from download_progress import DownloadProgress
-from mainwindow_ui import Ui_MainWindow
-from ask_download import AskDialog
+from ankabot.gui.mainwindow_ui import Ui_MainWindow
+from ankabot.scripts.download_finished import DownloadFinished
+from ankabot.scripts.download_progress import DownloadProgress
+from ankabot.scripts.ask_download import AskDialog
 from urllib.parse import unquote
-from search_engine import Google
+from ankabot.scripts.search_engine import Google
 from PyQt5.QtGui import QMovie
-import initialization as init
-from settings import Settings
-from download import Download
+from ankabot.scripts import initialization as init
+from ankabot.scripts.settings import Settings
+from ankabot.scripts.download import Download
 from PyQt5 import  QtWidgets
-from add_link import AddLink
-from scraper import Scraper
+from ankabot.scripts.add_link import AddLink
+from ankabot.scripts.scraper import Scraper
 import platform
 import time
 import json
@@ -725,8 +725,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
 
 
-
-if __name__ == "__main__":
+def main():
 
     import sys
     app = QtWidgets.QApplication(sys.argv)
@@ -734,3 +733,8 @@ if __name__ == "__main__":
     window.show()
     exit_code=app.exec_()
     sys.exit(exit_code)
+
+if __name__ == "__main__":
+    main()
+
+    

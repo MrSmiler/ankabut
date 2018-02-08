@@ -1,6 +1,6 @@
 
-from settings_ui import Ui_Dialog
-import ankabot_config as config
+from ankabot.gui.settings_ui import Ui_Dialog
+import ankabot.scripts.ankabot_config as config
 from PyQt5 import QtWidgets
 
 class Settings(QtWidgets.QDialog , Ui_Dialog ):

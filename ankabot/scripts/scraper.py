@@ -2,8 +2,8 @@
 
 #this file contain the webscraper code 
 
-from usefultools import StopWatch
-from search_engine import Google
+from ankabot.scripts.usefultools import StopWatch
+from ankabot.scripts.search_engine import Google
 from bs4 import BeautifulSoup
 import requests
 import queue
