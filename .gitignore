@@ -1,5 +1,6 @@
-__pycache__
-ankabot.egg-info
-build
-dist
-pyc
+__pycache__/
+ankabot.egg-info/
+build/
+dist/
+*.pyc
+*.swp
