@@ -1,11 +1,11 @@
 
-from PyQt5.QtCore import QThread , pyqtSignal , pyqtSlot
-from ankabot.gui.download_progress_ui import Ui_Dialog
 from ankabot.scripts.download_finished import DownloadFinished
 from ankabot.scripts.usefultools import StopWatch , Timer
-from urllib.parse import unquote
-from ankabot.scripts.download import Download
+from PyQt5.QtCore import QThread , pyqtSignal , pyqtSlot
+from ankabot.gui.download_progress_ui import Ui_Dialog
 from ankabot.scripts import initialization as init
+from ankabot.scripts.download import Download
+from urllib.parse import unquote
 from PyQt5 import QtWidgets 
 import json
 import time
@@ -114,32 +114,37 @@ class DownloadProgress(QtWidgets.QDialog , Ui_Dialog):
     
     #if resume is True this begins from the last downloaded byte to the end
     def make_thread(self,resume=False):
-        self.file_name= unquote(os.path.basename(self.url))
-        #temprory solution for pdf files which is not right at all but ....
-        if not re.search(r'\.\w{3}$',self.file_name) and re.search(r'\.pdf',self.file_name):
-            self.file_name = self.file_name +'.pdf'
+        try:
+            self.file_name= unquote(os.path.basename(self.url))
+            #temprory solution for pdf files which is not right at all but ....
+            if not re.search(r'\.\w{3}$',self.file_name) and re.search(r'\.pdf',self.file_name):
+                self.file_name = self.file_name +'.pdf'
 
-        file_path = os.path.join(init.download_part_folder,self.file_name)
-        if resume:
-            info_path = os.path.join(init.download_info_folder,self.file_name)
-            with open(info_path+'.info' ) as f:
-                info = f.read()
-            info = json.loads(info)
-            begin = info['last_byte']
-            chunk = int(info['last_byte']) // 124
-            frange = begin + '-'
-            self.dt  = DownloadThread(self.url ,file_path, int(self.file_size),frange = frange , chunk_counter = chunk)
+            file_path = os.path.join(init.download_part_folder,self.file_name)
+            if resume:
+                info_path = os.path.join(init.download_info_folder,self.file_name)
+                with open(info_path+'.info' ) as f:
+                    info = f.read()
+                info = json.loads(info)
+                begin = info['last_byte']
+                chunk = int(info['last_byte']) // 124
+                frange = begin + '-'
+                self.dt  = DownloadThread(self.url ,file_path, int(self.file_size),frange = frange , chunk_counter = chunk)
 
 
-        else:
-            self.dt = DownloadThread(self.url ,file_path ,int(self.file_size))
+            else:
+                self.dt = DownloadThread(self.url ,file_path ,int(self.file_size))
 
-        self.dt.downloadedsizeSig.connect(self.downloaded_slot)
-        self.dt.estimatedtimeSig.connect(self.estimated_time_slot)
-        self.dt.transferrateSig.connect(self.transfer_rate_slot)
-        self.dt.downloadstopedSig.connect(self.download_finished_or_stoped)
-        self.dt.percentSig.connect(self.percent_slot)
-        self.dt.start()
+            self.dt.downloadedsizeSig.connect(self.downloaded_slot)
+            self.dt.estimatedtimeSig.connect(self.estimated_time_slot)
+            self.dt.transferrateSig.connect(self.transfer_rate_slot)
+            self.dt.downloadstopedSig.connect(self.download_finished_or_stoped)
+            self.dt.percentSig.connect(self.percent_slot)
+            self.dt.start()
+        
+
+        except Exception as e:
+            QtWidgets.QMessageBox.warning(self.parent,'Ankabot',str(e))
 
     @pyqtSlot(str)
     def download_finished_or_stoped(self,status):
@@ -151,7 +156,6 @@ class DownloadProgress(QtWidgets.QDialog , Ui_Dialog):
         elif status == 'stoped':
             print('download stoped')
             self.close()
-            print('download stoped')
         elif status == 'paused':
             pass
 

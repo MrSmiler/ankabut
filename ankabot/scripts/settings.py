@@ -1,6 +1,7 @@
 
-from ankabot.gui.settings_ui import Ui_Dialog
 import ankabot.scripts.ankabot_config as config
+from ankabot.gui.settings_ui import Ui_Dialog
+from ankabot.scripts import exceptions
 from PyQt5 import QtWidgets
 
 class Settings(QtWidgets.QDialog , Ui_Dialog ):
@@ -53,7 +54,7 @@ class Settings(QtWidgets.QDialog , Ui_Dialog ):
             if self.addLanguage_rb.isChecked():
                 lang=self.language_le.text()
                 if not lang:
-                    raise Exception('language can not be empty')
+                    raise exceptions.SettingsError('language can not be empty')
                 config.add_lang(lang)
 
             #adds category
@@ -61,7 +62,7 @@ class Settings(QtWidgets.QDialog , Ui_Dialog ):
 
                 cat = self.newCategory_le.text()
                 if not cat:
-                    raise Exception('category can not be empty')
+                    raise exceptions.SettingsError('category can not be empty')
                 config.add_category(cat)
 
             #changes the query for a specefic category and language

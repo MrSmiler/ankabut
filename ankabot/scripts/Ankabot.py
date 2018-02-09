@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-from ankabot.scripts.ankabot_config import get_exts , get_query , get_langs ,config_check ,get_advanced_query
+from ankabot.scripts.ankabot_config import get_exts, get_query, get_langs, config_check, get_advanced_query
 from PyQt5.QtCore import QThread, QTime, pyqtSignal, pyqtSlot, QObject, Qt, QSize
 from ankabot.scripts.download_finished import DownloadFinished
 from ankabot.scripts.download_progress import DownloadProgress
@@ -14,6 +14,7 @@ from ankabot.scripts.settings import Settings
 from ankabot.scripts.download import Download
 from ankabot.scripts.add_link import AddLink
 from ankabot.scripts.scraper import Scraper
+from ankabot.scripts import exceptions
 from urllib.parse import unquote
 from PyQt5.QtGui import QMovie
 from PyQt5 import  QtWidgets
@@ -304,7 +305,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         fpage = self.gogPageFrom_sb.value()
         tpage = self.gogPageTo_sb.value()
         if fpage > tpage:
-            raise Exception("'from' page can not be greater than 'to' page")
+            raise exceptions.GooglePageError("'from' page can not be greater than 'to' page")
         self.google_pages =  list(range(fpage , tpage+1))
 
 
@@ -514,7 +515,8 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def search_button_clicked(self):
         try:
             if not self.fileName_le.text():
-                raise Exception('there must be a file name')
+                raise exceptions.EmptyFileNameError('there must be a file name')
+
             self.search_pb.setEnabled(False)
             if not os_name == 'Windows':
                 self.getlinksthread = GetLinksThread(self.qlinks)
@@ -529,11 +531,11 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             self.file_name = self.fileName_le.text()
             if self.notSureSpell_chb.isChecked():
                 if not re.search(r'.*\(\w*\).*',self.file_name):
-                    raise  Exception('when you are not sure about the file name spell you must use parenthesis around the part you dont know the spell')
+                    raise  exceptions.WithoutParenthesis('when you are not sure about the file name spell you must use parenthesis around the part you dont know the spell')
 
             else:
                 if  re.search(r'.*\(\w*\).*',self.file_name):
-                    raise Exception('dont use parenthesis in regular mode')
+                    raise exceptions.WithoutParenthesis('dont use parenthesis in regular mode')
 
             self.google_pages_toscrap()
             self.results_tw.clearContents()

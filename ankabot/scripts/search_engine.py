@@ -7,6 +7,7 @@
 
 
 
+from ankabot.scripts import exceptions
 from bs4 import BeautifulSoup
 import requests
 import re
@@ -36,7 +37,7 @@ class Google:
             except:
                 pass
         
-        raise Exception('cant find google page') 
+        raise exceptions.GooglePageError('cant find google page') 
 
     def get_links(self):
         try:
@@ -57,7 +58,7 @@ class Google:
                     self.websites_list.append(link)
             print('google has finished')
             if not self.websites_list:
-                raise Exception("empty websites list ")
+                raise exceptions.EmptyWebsitesError("empty websites list ")
 
             return self.websites_list
         

@@ -2,6 +2,7 @@
 
 from urllib.parse import urlunparse , unquote
 import ankabot.scripts.initialization as init
+from ankabot.scripts import exceptions
 import ankabot.scripts.usefultools 
 import requests 
 import time
@@ -78,7 +79,7 @@ class Download:
             self.headers['Range'] = 'bytes='+self.frange        
             res = requests.get(self.link,stream=True, headers = self.headers, timeout=(9,27)) 
             if res.status_code != 206 and res.status_code != 200 :
-                raise Exception('can not download the file')
+                raise exceptions.DownloadError('can not download the file')
             with open(self.file_path , 'ab') as f:
                 for chunk in res.iter_content(chunk_size = self.chunk_size):
                     if self.stop_downloading :
@@ -88,7 +89,10 @@ class Download:
                     progress(self.chunk_counter)
            
             
+        except exceptions.DownloadError as e:
+            raise e
 
+    
         except Exception as e:
             status = 'stoped'
             print(str(e))
