@@ -1,11 +1,10 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-from ankabot.scripts.ankabot_config import get_exts, get_query, get_langs, config_check, get_advanced_query
 from PyQt5.QtCore import QThread, QTime, pyqtSignal, pyqtSlot, QObject, Qt, QSize
 from ankabot.scripts.download_finished import DownloadFinished
 from ankabot.scripts.download_progress import DownloadProgress
-from multiprocessing import Process , Queue , freeze_support
+from multiprocessing import Process, Queue, freeze_support
 from ankabot.gui.mainwindow_ui import Ui_MainWindow
 from ankabot.scripts import initialization as init
 from ankabot.scripts.ask_download import AskDialog
@@ -14,39 +13,39 @@ from ankabot.scripts.settings import Settings
 from ankabot.scripts.download import Download
 from ankabot.scripts.add_link import AddLink
 from ankabot.scripts.scraper import Scraper
+from ankabot.scripts import ankabot_config
 from ankabot.scripts import exceptions
 from urllib.parse import unquote
 from PyQt5.QtGui import QMovie
-from PyQt5 import  QtWidgets
+from PyQt5 import QtWidgets
 import platform
 import time
 import json
 import os
 import re
 
-#determinning the oprating system
+# determinning the oprating system
 os_name = platform.system()
 
 
-
-#google search engine thread 
-#this search for websites related to the search query
+# google search engine thread 
+# this search for websites related to the search query
 class GoogleThread(QThread):
     links_found = pyqtSignal(list) 
-    def __init__(self, query,page,*args,**kwargs):
-        super().__init__(*args,**kwargs)
+    def __init__( self, query, page, *args, **kwargs ):
+        super().__init__( *args, **kwargs )
         self.page = page
         self.q = query
 
     def run(self):
         self.gog = Google(self.q,self.page)
         links = self.gog.get_links()
-        #when google find the website links this signal will emit
+        # when google find the website links this signal will emit
         self.links_found.emit(links)
    
 
 
-#website scraper thread this is gonna execute in windows op
+# website scraper thread this is gonna execute in windows op
 class ScraperThread(QThread,Scraper):
     linkhasfound = pyqtSignal(tuple)
     searchedlinkinc = pyqtSignal() 
@@ -64,7 +63,7 @@ class ScraperThread(QThread,Scraper):
             self.linkhasfound.emit(tup)
 
 
-#website scraper this is gonna execute in a different process in linux op
+# website scraper this is gonna execute in a different process in linux op
 class ScraperProcess(Scraper):
     def __init__(self,*args,**kwargs):
         Scraper.__init__(self,*args , **kwargs)
@@ -85,10 +84,10 @@ class ScraperProcess(Scraper):
         self.qsearched = qsearched
         self.qfinished = qfinished
 
-#if op is linux scrapers are executing in different processes
-#so in order to get data from those process as fast as possible and show
-#them to user i used multiprocessing.Queue 
-#this thread send signal when a link is searched
+# if op is linux scrapers are executing in different processes
+# so in order to get data from those process as fast as possible and show
+# them to user i used multiprocessing.Queue 
+# this thread send signal when a link is searched
 class GetSearchedThread(QThread):
     searchedlinkinc = pyqtSignal() 
     def __init__(self,squeue,*args , **kwargs ):
@@ -110,7 +109,7 @@ class GetSearchedThread(QThread):
     def do_stop(self):
         self.isrunning = False
 
-#as same as above thread but this send signal when a scraper finished
+# as same as above thread but this send signal when a scraper finished
 class GetFinishedThread(QThread):
     scrapfinished = pyqtSignal()
     def __init__(self,fqueue,*args , **kwargs ):
@@ -132,7 +131,7 @@ class GetFinishedThread(QThread):
     def do_stop(self):
         self.isrunning = False
 
-#this send signal when a result link is found
+# this send signal when a result link is found
 class GetLinksThread(QThread):
     linkhasfound = pyqtSignal(tuple)
 
@@ -157,7 +156,7 @@ class GetLinksThread(QThread):
     def do_stop(self):
         self.isrunning = False
 
-#this thread counts the elapsed time and send signals for those square animations
+# this thread counts the elapsed time and send signals for those square animations
 class SearchAnimThread(QThread):
     colorize = pyqtSignal(int)
     counttime = pyqtSignal()
@@ -171,7 +170,7 @@ class SearchAnimThread(QThread):
     def stop(self):
         self.isrunning = False 
 
-    #this emit number 1-4 every time 
+    # this emit number 1-4 every time 
     def animate(self):
         while self.isrunning:
             self.c = ( self.c  % 4 ) + 1
@@ -182,7 +181,7 @@ class SearchAnimThread(QThread):
 
 
 
-#i think its obvious        
+# i think its obvious        
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def __init__(self,*args,**kwargs):
         super().__init__(*args,**kwargs)
@@ -201,8 +200,8 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.minute = 0
         self.tw_row = 0
 
-        #these queues are for connecting processes in order to 
-        #get information from them on the run
+        # these queues are for connecting processes in order to 
+        # get information from them on the run
         if not os_name == 'Windows':
             self.qlinks = Queue()
             self.qsearched = Queue()
@@ -211,7 +210,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         
 
 
-    #this is the widgets events
+    # this is the widgets events
     def connect_signals(self):
         self.search_pb.clicked.connect(self.search_button_clicked)
         self.stop_pb.clicked.connect(self.stop_pb_clicked)
@@ -227,7 +226,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.se = Settings(parent=self)
         self.se.show()
 
-    #this slot is invoked when delete button in download manager is clicked
+    # this slot is invoked when delete button in download manager is clicked
     def delete_button_clicked(self):
         url=self.downloadDelete_pb.url 
         file_name = unquote(os.path.basename(url))
@@ -244,14 +243,14 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
 
         
-    #in download manager tab add link button 
+    # in download manager tab add link button 
     def addlink_button_clicked(self):
         self.add_link_window = AddLink(self)
         self.add_link_window.show()
         
     
 
-    #when click on cell on the downloads table all the other cells on same row are selected
+    # when click on cell on the downloads table all the other cells on same row are selected
     def downloads_table_clicked(self,item):
         row = item.row()
         for i in range(self.downloads_tw_cols):
@@ -259,7 +258,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             item.setSelected(True)
             if i == 1:
                 if item.text() == 'stoped' or item.text()=='complete' or item.text()=='paused':
-                    #show the resume button
+                    # show the resume button
                     self.downloadResume_pb.setEnabled(True)
                     self.downloadDelete_pb.url = item.url
                     self.downloadResume_pb.url = item.url
@@ -273,7 +272,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         url =self.downloadResume_pb.url
         size = self.downloadResume_pb.file_size
 
-        #if download is complete ask for restart
+        # if download is complete ask for restart
         if self.downloadResume_pb.status == 'complete':
             ans=QtWidgets.QMessageBox.question(self,'Ankabot', 'would like to restart the download ? ')
             if ans == QtWidgets.QMessageBox.Yes:
@@ -287,7 +286,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                     QtWidgets.QMessageBox.warning(self,'Ankabot',str(e))
 
                 else:
-                    #download the file
+                    # download the file
                     self.dp = DownloadProgress(self, url , size , resume = False)
                     self.dp.show()
 
@@ -300,7 +299,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
 
 
-    #this return a list of google pages that must be scrap
+    # this return a list of google pages that must be scrap
     def google_pages_toscrap(self):
         fpage = self.gogPageFrom_sb.value()
         tpage = self.gogPageTo_sb.value()
@@ -313,7 +312,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
 
 
-    #this stops the searching 
+    # this stops the searching 
     def stop_pb_clicked(self):
         try:
             if not os_name == 'Windows':
@@ -321,19 +320,17 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                 self.getfinishedthread.do_stop()
                 self.getsearchedthread.do_stop()
             
-                #deleting the queue objects because they hold previous data
-                #unfortunatly multiprocessing Queue doesnt supprot Queue.queue.clear() method 
-                #and i have to use this queue because i want to get information from each process and show them to user when srapers are running 
+                # deleting the queue objects because they hold previous data
+                # unfortunatly multiprocessing Queue doesnt supprot Queue.queue.clear() method 
+                # and i have to use this queue because i want to get information from each process and show them to user when srapers are running 
                 del self.qlinks
                 del self.qsearched
                 del self.qfinished
-                #and making them againe
+                # and making them againe
                 self.qsearched = Queue()
                 self.qfinished = Queue()
                 self.qlinks = Queue()
 
-            #if self.finished_scraper < self.started_scrapers and self.scraper_threads:
-            #    self.dialog.show() 
 
             self.search_stop = True
             self.statusVal_la.setText('inactive')
@@ -354,15 +351,15 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         
         self.search_pb.setEnabled(True)
 
-    #in linux at the time of creating a new process the process will execute this function
+    # in linux at the time of creating a new process the process will execute this function
     def scrap(self,file_name , exts,link , not_sure , scraper_id ):
         p = ScraperProcess( file_name=file_name , categories=exts ,link=link,not_sure=not_sure,scraper_id=scraper_id)
         p.set_q(self.qlinks,self.qsearched,self.qfinished)
         p.run()
 
-    #this initiate the scrapers job 
+    # this initiate the scrapers job 
     def thread_creator(self):
-        exts = get_exts(self.category.lower())
+        exts = ankabot_config.get_exts(self.category.lower())
         if not self.links:
             self.stop_pb_clicked()
         not_sure = True if self.notSureSpell_chb.isChecked() else False
@@ -387,7 +384,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
 
 
-    #this slot call when google found the websites
+    # this slot call when google found the websites
     @pyqtSlot(list)
     def google_links_found(self,links):
         try: 
@@ -401,13 +398,13 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             self.stop_pb_clicked()
             QtWidgets.QMessageBox.warning(self,'Ankabot',str(e))
 
-    #this counts the finished scraper threads in order to begin the new ones
+    # this counts the finished scraper threads in order to begin the new ones
     def scraper_finished_count(self):
         self.finished_scraper += 1 
 
-        #this continue the search after scraping websites at the same time
-        #it scrapes another group of websites 
-        #and if user determine other google pages this handles that
+        # this continue the search after scraping websites at the same time
+        # it scrapes another group of websites 
+        # and if user determine other google pages this handles that
         if self.finished_scraper >= self.started_scrapers and not self.search_stop:
             if not self.links:
                 if not self.google_pages:
@@ -429,14 +426,14 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
     
 
-    #this slot is for counting the searched links
+    # this slot is for counting the searched links
     def searched_link_inc(self):
         self.searched_links += 1
         self.searchedLinksVal_la.setText(str(self.searched_links))
 
             
 
-    #this slot is called when a link is found
+    # this slot is called when a link is found
     @pyqtSlot(tuple)
     def link_has_found(self,tup):
         website_url , link = tup
@@ -467,7 +464,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                 self.results_tw.setCellWidget(self.tw_row , col , widget) 
             
             elif col == 3:
-                #website link
+                # website link
                 widget = QtWidgets.QLabel()
                 widget.setText("<a href='"+website_url+"' > Visit Website </a>")
                 widget.setTextFormat(Qt.RichText)
@@ -482,7 +479,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
         self.tw_row += 1
     
-    #after search , in the results table widget there are some download buttons
+    # after search , in the results table widget there are some download buttons
     def download_button_clicked(self,url):
         
         dialog = AskDialog(self)
@@ -490,7 +487,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         dialog.show() 
          
 
-    #this slot handle the squares animations 
+    # this slot handle the squares animations 
     @pyqtSlot(int)
     def animate_frames(self,fr_num):
         if fr_num == 1:
@@ -550,7 +547,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             self.category = self.queryCategory_cb.currentText()
             search_t = self.basicSearchType_cb.currentIndex()
 
-            #in not_sure mode parenthesis must not be in the google search query 
+            # in not_sure mode parenthesis must not be in the google search query 
             if self.notSureSpell_chb.isChecked():
                 file_name = self.file_name
                 file_name = file_name.replace('(','')
@@ -558,17 +555,17 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             else:
                 file_name = self.file_name 
 
-            #search_t == 0 means regular google search
+            # search_t == 0 means regular google search
             if search_t == 0: 
                 language= self.queryLanguage_cb.currentText() 
-                query = get_query(language,self.category.lower()) 
+                query = ankabot_config.get_query(language,self.category.lower()) 
                 self.main_query =file_name+' '+query 
 
-            #google advanced search query
+            # google advanced search query
             elif search_t == 1:
-                types= get_exts(self.category.lower())
+                types= ankabot_config.get_exts(self.category.lower())
                 types = '|'.join(types)
-                ad_query = get_advanced_query()
+                ad_query = ankabot_config.get_advanced_query()
                 self.main_query= '{0} {1} ({2})'.format(file_name,ad_query,types)
                 print(self.main_query)
             self.t = GoogleThread(self.main_query,self.google_pages[0])
@@ -580,23 +577,23 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             QtWidgets.QMessageBox.warning(self,'Ankabot' , str(e))
 
         else:
-            #time cleaning 
+            # time cleaning 
             self.second = 0
             self.minute = 0
-            #labels cleaning
+            # labels cleaning
             self.timeVal_la.setText('00:00')
             self.resultLinksVal_la.setText('0')
             self.searchedLinksVal_la.setText('0')
-            #animation init
+            # animation init
             self.anim = SearchAnimThread() 
             self.anim.colorize.connect(self.animate_frames)
             self.anim.counttime.connect(self.timer)
             self.anim.start()
             self.statusVal_la.setText('searching')
-            #time init
+            # time init
 
    
-    #counts the time after search began
+    # counts the time after search began
     def timer(self):
         self.second += 1
         if self.second == 60:
@@ -608,16 +605,16 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.timeVal_la.setText(time_string)
 
   
-    #this function is invoked when 'yes' clicked in ask_download Qdialog
+    # this function is invoked when 'yes' clicked in ask_download Qdialog
     def download_progress_clicked(self,url,file_size):
         
         self.win = DownloadProgress(self,url , file_size) 
         self.win.show()
 
-    #this initialize those language query combo box and category combo box 
+    # this initialize those language query combo box and category combo box 
     def init_lang_category(self):
-        cats=get_exts()
-        langs=get_langs()
+        cats=ankabot_config.get_exts()
+        langs=ankabot_config.get_langs()
         self.queryCategory_cb.clear()
         self.queryLanguage_cb.clear()
         if 'persian' in langs:
@@ -635,9 +632,9 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
     def init_properties(self):
 
-        #make files and folders and other init things 
+        # make files and folders and other init things 
         init.init()
-        config_check()
+        ankabot_config.config_check()
         
 
         self.setWindowTitle('Ankabot')
@@ -647,15 +644,15 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.init_lang_category()
                 
         
-        #when we want to make executable file for windows and also we want to use multiprocessing this function 
-        #must be in the program to make the program Windows compatible
+        # when we want to make executable file for windows and also we want to use multiprocessing this function 
+        # must be in the program to make the program Windows compatible
         freeze_support()
 
     def download_finished(self,url ,size , file_name):
         self.window = DownloadFinished(self,url,size , file_name)
         self.window.show()
 
-    #this show the downloaded files and their information on download manger tab
+    # this show the downloaded files and their information on download manger tab
     def init_downloads_table(self):
         datas =[]
         row = 0
@@ -718,7 +715,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             
 
 
-    #if user closed the window in the middle of the search, threads or processes must be terminate
+    # if user closed the window in the middle of the search, threads or processes must be terminate
     def closeEvent(self,event):
         if self.scraper_threads:
             for p in self.scraper_threads:
