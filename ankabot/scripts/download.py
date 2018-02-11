@@ -2,8 +2,8 @@
 
 from urllib.parse import urlunparse , unquote
 import ankabot.scripts.initialization as init
+from ankabot.scripts import usefultools 
 from ankabot.scripts import exceptions
-import ankabot.scripts.usefultools 
 import requests 
 import time
 import json

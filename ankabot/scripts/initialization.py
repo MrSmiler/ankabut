@@ -31,11 +31,7 @@ config_file = os.path.join(config_folder,'ankabot.config')
 download_path = os.path.join(user_path , 'Downloads' , 'Ankabot')
 
 
-
 def init():
-    
-
-    
 
     #make folders 
     for path in [ config_folder , download_info_folder , download_part_folder, download_path]:

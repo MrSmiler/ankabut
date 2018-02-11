@@ -1,13 +1,27 @@
 
-from PyQt5.QtCore import QThread , pyqtSignal , pyqtSlot
-from PyQt5.QtWidgets import QDialog , QApplication
+from PyQt5.QtWidgets import QDialog, QApplication, QMessageBox
 from ankabot.scripts.download_progress import DownloadProgress
+from PyQt5.QtCore import QThread, pyqtSignal, pyqtSlot
 from ankabot.gui.ask_download_ui import Ui_Dialog
 from ankabot.scripts.download import Download
+import initialization as init
 from PyQt5 import QtGui
+import json
 import sys 
 import re
 import os
+
+
+def handle_download_before( url ):
+    info_files = os.listdir(init.download_info_folder)
+    for File in info_files:
+        with open(os.path.join(init.download_info_folder,File)) as f:
+            data = f.read()
+            info = json.loads(data)
+            if url == info['link']:
+                return (True, File)
+    return (False , None)
+
 
 
 class FileInfoThread(QThread):
@@ -27,7 +41,6 @@ class FileInfoThread(QThread):
 
 
 class AskDialog(QDialog , Ui_Dialog):
-    pic_folder = 'pics'
     def __init__(self,parent=None):
         QDialog.__init__(self , parent)
         self.setupUi(self)
@@ -40,21 +53,34 @@ class AskDialog(QDialog , Ui_Dialog):
 
     def showEvent(self,event):
         self.url = self.url_le.text()
-        if self.url:
-            self.fiThread = FileInfoThread(self.url) 
-            self.fiThread.infoHasFound.connect(self.info_has_found)
-            self.fiThread.start()
-            try:
-                pic_folder = 'pics'
-                open(os.path.join(pic_folder,'video.png'))
-            except:
-                pic_folder = ''
+        try:
+            result, File=handle_download_before(self.url)
+            if result:
+                ans=QMessageBox.question(self.parent,'Ankabot','you have downloaded this file before, would you like to delete the file and continue ?')
+                if ans == QMessageBox.Yes:
+                    os.remove(os.path.join(init.download_info_folder,File))
+                    os.remove(os.path.join(init.download_part_folder,(File)[:-5]))
+                else:
+                   QDialog.showEvent(self,event) 
 
-            self.videoPicAddr = os.path.join(pic_folder,'video.png')
-            self.musicPicAddr = os.path.join(pic_folder,'music.png')
-            self.filePicAddr = os.path.join(pic_folder,'file.png')
-            self.pdfPicAddr = os.path.join(pic_folder,'pdf.png')
-            self.softPicAddr = os.path.join(pic_folder,'software.png' )
+            if self.url:
+                self.fiThread = FileInfoThread(self.url) 
+                self.fiThread.infoHasFound.connect(self.info_has_found)
+                self.fiThread.start()
+                try:
+                    pic_folder = os.path.join('..','icons')
+                    open(os.path.join(pic_folder,'video.png'))
+                except:
+                    pic_folder = 'icons'
+
+                self.videoPicAddr = os.path.join(pic_folder,'video.png')
+                self.musicPicAddr = os.path.join(pic_folder,'music.png')
+                self.filePicAddr = os.path.join(pic_folder,'file.png')
+                self.pdfPicAddr = os.path.join(pic_folder,'pdf.png')
+                self.softPicAddr = os.path.join(pic_folder,'software.png' )
+
+        except Exception as e:
+            print(str(e))
 
 
         

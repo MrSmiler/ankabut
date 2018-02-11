@@ -9,6 +9,7 @@ from ankabot.gui.mainwindow_ui import Ui_MainWindow
 from ankabot.scripts import initialization as init
 from ankabot.scripts.ask_download import AskDialog
 from ankabot.scripts.search_engine import Google
+from PyQt5.QtGui import QMovie, QIcon, QPixmap
 from ankabot.scripts.settings import Settings
 from ankabot.scripts.download import Download
 from ankabot.scripts.add_link import AddLink
@@ -16,7 +17,6 @@ from ankabot.scripts.scraper import Scraper
 from ankabot.scripts import ankabot_config
 from ankabot.scripts import exceptions
 from urllib.parse import unquote
-from PyQt5.QtGui import QMovie
 from PyQt5 import QtWidgets
 import platform
 import time
@@ -641,12 +641,12 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.results_tw.setColumnWidth(0,400)
         self.results_tw.setColumnWidth(2,200)
         self.downloads_tw.setColumnWidth(0,600)
+        # self.downloadAdd_pb.setIcon(QIcon(QPixmap('../add.png')))
         self.init_lang_category()
                 
         
         # when we want to make executable file for windows and also we want to use multiprocessing this function 
         # must be in the program to make the program Windows compatible
-        freeze_support()
 
     def download_finished(self,url ,size , file_name):
         self.window = DownloadFinished(self,url,size , file_name)
