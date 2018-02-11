@@ -17,6 +17,7 @@ from ankabot.scripts.scraper import Scraper
 from ankabot.scripts import ankabot_config
 from ankabot.scripts import exceptions
 from urllib.parse import unquote
+from ankabot.scripts import resources
 from PyQt5 import QtWidgets
 import platform
 import time
@@ -638,10 +639,12 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         
 
         self.setWindowTitle('Ankabot')
+        self.setWindowIcon(QIcon(':/icons/ankabot.ico'))
         self.results_tw.setColumnWidth(0,400)
         self.results_tw.setColumnWidth(2,200)
         self.downloads_tw.setColumnWidth(0,600)
-        # self.downloadAdd_pb.setIcon(QIcon(QPixmap('../add.png')))
+        self.downloadAdd_pb.setIcon(QIcon(QPixmap(':/icons/add.png')))
+        self.downloadResume_pb.setIcon(QIcon(QPixmap(':/icons/play.png')))
         self.init_lang_category()
                 
         

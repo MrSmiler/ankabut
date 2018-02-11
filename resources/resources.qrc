@@ -1,0 +1,16 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource>
+        <file>icons/add.png</file>
+   	<file>icons/ankabot.ico</file>
+   	<file>icons/ankabot_tray.svg</file>
+    	<file>icons/file.png</file>
+    	<file>icons/music.png</file>
+    	<file>icons/pause.png</file>
+	<file>icons/pdf.png</file>
+	<file>icons/play.png</file>
+	<file>icons/software.png</file>
+	<file>icons/stop.png</file>
+	<file>icons/video.png</file>
+
+</qresource>
+</RCC>
