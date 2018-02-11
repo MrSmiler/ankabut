@@ -4,7 +4,7 @@ from ankabot.scripts.download_progress import DownloadProgress
 from PyQt5.QtCore import QThread, pyqtSignal, pyqtSlot
 from ankabot.gui.ask_download_ui import Ui_Dialog
 from ankabot.scripts.download import Download
-import initialization as init
+from ankabot.scripts import initialization as init
 from PyQt5 import QtGui
 import json
 import sys 

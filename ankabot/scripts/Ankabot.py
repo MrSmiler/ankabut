@@ -654,59 +654,62 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
     # this show the downloaded files and their information on download manger tab
     def init_downloads_table(self):
-        datas =[]
-        row = 0
-        files= os.listdir(init.download_info_folder)
-        for file_path in files:
-            with open(os.path.join(init.download_info_folder,file_path)) as f:
-                info = f.readline()
-                info = json.loads(info)
-            datas.append(info)
+        try:
+            datas =[]
+            row = 0
+            files= os.listdir(init.download_info_folder)
+            for file_path in files:
+                with open(os.path.join(init.download_info_folder,file_path)) as f:
+                    info = f.readline()
+                    info = json.loads(info)
+                datas.append(info)
 
-        for i in range(len(datas)-1):
-            Max=float((datas[i])['last_try'])
-            index = i
-            for j in range(i+1,len(datas)):
-                el =float((datas[j])['last_try'])
-                if el > Max :
-                    Max = el
-                    index = j
-            t = datas[i]
-            datas[i] = datas[index]
-            datas[index] = t
+            for i in range(len(datas)-1):
+                Max=float((datas[i])['last_try'])
+                index = i
+                for j in range(i+1,len(datas)):
+                    el =float((datas[j])['last_try'])
+                    if el > Max :
+                        Max = el
+                        index = j
+                t = datas[i]
+                datas[i] = datas[index]
+                datas[index] = t
 
-        for info in datas:
-            self.downloads_tw.setRowCount(row+1)
-            for j in range(self.downloads_tw_cols):
-                if j == 0:
-                    item = QtWidgets.QTableWidgetItem(unquote(os.path.basename(info['file_path'])))
-                    self.downloads_tw.setItem(row , j , item)
-                if j == 1:
-                    item = QtWidgets.QTableWidgetItem(info['status'])
-                    item.url = info['link']
-                    item.file_size = info['file_size']
-                    self.downloads_tw.setItem(row , j , item)
+            for info in datas:
+                self.downloads_tw.setRowCount(row+1)
+                for j in range(self.downloads_tw_cols):
+                    if j == 0:
+                        item = QtWidgets.QTableWidgetItem(unquote(os.path.basename(info['file_path'])))
+                        self.downloads_tw.setItem(row , j , item)
+                    if j == 1:
+                        item = QtWidgets.QTableWidgetItem(info['status'])
+                        item.url = info['link']
+                        item.file_size = info['file_size']
+                        self.downloads_tw.setItem(row , j , item)
 
-                if j == 2:
-                    item = QtWidgets.QTableWidgetItem(Download.h_size(info['file_size']))
-                    self.downloads_tw.setItem(row , j , item)
-                if j == 3:
+                    if j == 2:
+                        item = QtWidgets.QTableWidgetItem(Download.h_size(info['file_size']))
+                        self.downloads_tw.setItem(row , j , item)
+                    if j == 3:
+                        
+                        item = QtWidgets.QTableWidgetItem(info['percent']+' %')
+                        self.downloads_tw.setItem(row , j , item)
                     
-                    item = QtWidgets.QTableWidgetItem(info['percent']+' %')
-                    self.downloads_tw.setItem(row , j , item)
-                
-                if j == 4:
-                    item = QtWidgets.QTableWidgetItem(Download.h_size(info['last_byte']))
-                    self.downloads_tw.setItem(row , j , item)
+                    if j == 4:
+                        item = QtWidgets.QTableWidgetItem(Download.h_size(info['last_byte']))
+                        self.downloads_tw.setItem(row , j , item)
 
-                if j== 5:
-                    item = QtWidgets.QTableWidgetItem(time.ctime(float(info['last_try'])))
-                    self.downloads_tw.setItem(row , j , item)
+                    if j== 5:
+                        item = QtWidgets.QTableWidgetItem(time.ctime(float(info['last_try'])))
+                        self.downloads_tw.setItem(row , j , item)
 
 
 
 
-            row += 1
+                row += 1
+        except Exception as e:
+            print(str(e))
 
 
 
