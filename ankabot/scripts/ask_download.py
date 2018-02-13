@@ -85,7 +85,8 @@ class AskDialog(QDialog , Ui_Dialog):
         except :
             pass
         if re.search(r'application/octet-stream',file_type):
-            if ext == 'mkv' or ext == 'mp4' or ext == 'avi':
+            if 'mkv' in ext or 'mp4' in ext   or 'avi' in ext :
+                ext = ext[-3:]
                 self.fileType_la.setText(ext)
                 self.filePicture_la.setPixmap(QtGui.QPixmap(self.videoPicAddr))
             elif ext == 'exe': 
