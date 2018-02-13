@@ -1,5 +1,6 @@
 # ankabot
 <b>Download movies, series, software,etc.. for free</b><br>
+![ScreenShot](https://github.com/MrSmiler/ankabot/blob/master/resources/ankabot_demo2.gif)
 <br>
 a web scraper with a simple download manger written in pyqt5 .<br>
 the scraper can find direct and free link of files like movies, series, software , subtitle , music , etc..<br>
