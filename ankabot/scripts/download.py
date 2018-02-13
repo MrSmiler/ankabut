@@ -33,21 +33,20 @@ class Download:
         self.frange = '{0}-{1}'.format(begin,end) 
 
     #this function gets the file size in bytes and return human readable size
+    #human readable size
     @staticmethod
     def h_size(size):
-        labels = [  'KB' , 'MB' , 'Gb' , 'TB' , 'PB']
-        i = -1
         if type(size) == str:
             size = int(size)
-        
+        labels = [  'KB' , 'MB' , 'Gb' , 'TB' , 'PB']
+        i = -1
         if size < 1000:
             return str(size)+' B'
         while size >= 1000:
             i += 1
-            m = size % 1000
-            size = int(size / 1000)
+            size = size / 1000
 
-        return str(size)+'.'+str(m)[0]+' ' +labels[i]
+        return str(round(size,1))+' '+labels[i]
 
 
 
