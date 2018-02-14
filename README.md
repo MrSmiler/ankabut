@@ -1,4 +1,10 @@
 # ankabot
+<div align="center">
+<img src="https://github.com/MrSmiler/ankabot/blob/master/resources/icons/ankabot_main.jpg" width="400" />
+<br>
+</div>
+
+
 <b>Download movies, series, software,etc.. for free</b><br>
 ![ScreenShot](https://github.com/MrSmiler/ankabot/blob/master/resources/ankabot_demo2.gif)
 <br>
