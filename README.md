@@ -5,11 +5,16 @@
 </div>
 
 
-<b>Download movies, series, software,etc.. for free</b><br>
+<b>Download movies, series, software,etc.. for free</b><br><br>
 ![ScreenShot](https://github.com/MrSmiler/ankabot/blob/master/resources/ankabot_demo2.gif)
 <br>
+## What is this ?
+
+
 a web scraper with a simple download manger written in pyqt5 .<br>
 the scraper can find direct and free link of files like movies, series, software , subtitle , music , etc..<br>
+
+## How it Works ?
 it works base on the query language (regular text which you search on google) you specify , you can add new query language , new categories, new file extensions to search the web .<br>
 
 you can find files across the websites ,just give the file name to the scraper and specify your category then wait for the results . 
