@@ -22,11 +22,14 @@ you can find files across the websites ,just give the file name to the scraper a
 <b> linux/ubuntu </b>
 ![ScreenShot](https://i.imgur.com/uWpBXP8.png)<br><br>
 ![ScreenShot](https://i.imgur.com/w9sDap8.png)
+<br>
+## installation
+
 
 download installation file on windows :<br>
 <a href='https://github.com/MrSmiler/ankabot/releases/download/v0.1-alpha/ankabot_0.1_windows_64bit.exe'>ankabot_0.1_windows_64bit.exe</a>
 
-you can also install it with setup.py to :<br>
+you can also install it with setup.py :<br>
 python setup.py install
 
 
