@@ -20,7 +20,7 @@ it works base on the query language (regular text which you search on google) yo
 you can find files across the websites ,just give the file name to the scraper and specify your category then wait for the results . 
 
 <b> linux/ubuntu </b>
-![ScreenShot](https://i.imgur.com/uWpBXP8.png)
+![ScreenShot](https://i.imgur.com/uWpBXP8.png)<br><br>
 ![ScreenShot](https://i.imgur.com/w9sDap8.png)
 
 download installation file on windows :<br>
