@@ -1,0 +1,9 @@
+#!/bin/bash
+
+path='../../ui_files'
+pyuic5 -x $path/mainwindow_ui.ui -o mainwindow_ui.py
+pyuic5 -x $path/ask_download_ui.ui -o ask_download_ui.py
+pyuic5 -x $path/download_progress_ui.ui -o download_progress_ui.py
+pyuic5 -x $path/download_finished_ui.ui -o download_finished_ui.py
+pyuic5 -x $path/add_link_ui.ui -o add_link_ui.py
+pyuic5 -x $path/settings_ui.ui -o settings_ui.py
