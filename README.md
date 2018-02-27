@@ -1,12 +1,12 @@
-# ankabot
+# ankabut
 <div align="center">
-<img src="https://github.com/MrSmiler/ankabot/blob/master/resources/icons/ankabot_main.jpg" width="400" />
+<img src="https://github.com/MrSmiler/ankabut/blob/master/resources/icons/ankabut_main.jpg" width="400" />
 <br>
 </div>
 
 
 <b>Download movies, series, software,etc.. for free</b><br><br>
-![ScreenShot](https://github.com/MrSmiler/ankabot/blob/master/resources/ankabot_demo2.gif)
+![ScreenShot](https://github.com/MrSmiler/ankabut/blob/master/resources/ankabut_demo2.gif)
 <br>
 ## What is this ?
 
@@ -27,7 +27,7 @@ you can find files across the websites ,just give the file name to the scraper a
 
 
 download installation file on windows :<br>
-<a href='https://github.com/MrSmiler/ankabot/releases/download/v0.1-alpha/ankabot_0.1_windows_64bit.exe'>ankabot_0.1_windows_64bit.exe</a>
+<a href='https://github.com/MrSmiler/ankabut/releases/download/v0.1-alpha/ankabut_0.1_windows_64bit.exe'>ankabut_0.1_windows_64bit.exe</a>
 
 you can also install it with setup.py :<br>
 python setup.py install
