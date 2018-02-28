@@ -30,10 +30,10 @@ you can find files across the websites ,just give the file name to the scraper a
 you can also install it with setup.py :<br>
 
 ```
->>> pip install requests
->>> pip install pyqt5
->>> pip install bs4
->>> python setup.py install
+$ pip install requests
+$ pip install pyqt5
+$ pip install bs4
+$ python setup.py install
 ```
 
 
