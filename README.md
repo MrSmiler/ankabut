@@ -27,7 +27,7 @@ you can find files across the websites ,just give the file name to the scraper a
 
 
 download installation file on windows :<br>
-<a href='https://github.com/MrSmiler/ankabut/releases/download/v0.1-alpha/ankabot_0.1_windows_64bit.exe'>ankabut_0.1_windows_64bit.exe</a>
+<a href='https://github.com/MrSmiler/ankabut/releases/'>ankabut_0.1_windows_64bit.exe</a>
 
 you can also install it with setup.py :<br>
 python setup.py install
