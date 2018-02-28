@@ -25,15 +25,13 @@ you can find files across the websites ,just give the file name to the scraper a
 <br>
 ## installation
 
-
-download installation file on windows :<br>
-<a href='https://github.com/MrSmiler/ankabut/releases/'>Download Releases</a>
+<a href='https://github.com/MrSmiler/ankabut/releases/'>download installation files</a>
 
 you can also install it with setup.py :<br>
 
 ```
->>> pip install pyqt5
 >>> pip install requests
+>>> pip install pyqt5
 >>> pip install bs4
 >>> python setup.py install
 ```
