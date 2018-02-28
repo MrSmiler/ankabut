@@ -734,6 +734,7 @@ def main():
 
     import sys
     app = QtWidgets.QApplication(sys.argv)
+    app.setStyle('fusion')
     window = MainWindow()
     window.show()
     exit_code=app.exec_()
