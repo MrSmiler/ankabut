@@ -30,9 +30,12 @@ download installation file on windows :<br>
 <a href='https://github.com/MrSmiler/ankabut/releases/'>Download Releases</a>
 
 you can also install it with setup.py :<br>
->> pip install pyqt5
->> pip install requests
->> pip install bs4
->> python setup.py install
+
+```
+>>> pip install pyqt5
+>>> pip install requests
+>>> pip install bs4
+>>> python setup.py install
+```
 
 
