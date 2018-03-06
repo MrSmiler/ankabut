@@ -3,10 +3,6 @@
 
 #this is the search engine
 
-
-
-
-
 from ankabut.scripts import exceptions
 from bs4 import BeautifulSoup
 import requests
@@ -94,7 +90,7 @@ class Google:
 
 
 if __name__ == '__main__':
-    main_query= '{0} -inurl:(htm|html|php|pls|txt) intitle:index.of ({1})'.format('thor','mkv|avi|mp4')
+    main_query= 'دانلود فیلم mad max'
 
     ob = Google(main_query,1)
     try:

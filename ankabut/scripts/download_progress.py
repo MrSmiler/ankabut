@@ -1,7 +1,7 @@
 
 from ankabut.scripts.download_finished import DownloadFinished
 from ankabut.scripts.usefultools import StopWatch , Timer
-from PyQt5.QtCore import QThread , pyqtSignal , pyqtSlot
+from PyQt5.QtCore import QThread , pyqtSignal , pyqtSlot, Qt
 from ankabut.gui.download_progress_ui import Ui_Dialog
 from ankabut.scripts import initialization as init
 from ankabut.scripts.download import Download
@@ -93,6 +93,7 @@ class DownloadProgress(QtWidgets.QDialog , Ui_Dialog):
     def __init__(self,parent=None, url='' , size=0 ,resume = False):
         QtWidgets.QDialog.__init__(self,parent)
         self.setupUi(self)
+        self.setWindowFlags(Qt.Window)
         self.url = url
         self.file_size = size 
         self.resume = resume

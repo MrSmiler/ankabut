@@ -295,7 +295,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                 
             
         else:
-            self.dp = DownloadProgress(self,url , size , resume = True)
+            self.dp = DownloadProgress(url=url , size=size , resume = True)
             self.dp.show()
 
 
