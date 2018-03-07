@@ -1,6 +1,6 @@
 # ankabut
 <div align="center">
-<img src="https://github.com/MrSmiler/ankabut/blob/master/resources/icons/ankabut_main.jpg" width="400" />
+<img src="https://i.imgur.com/LUHa4uV.jpg" width="400" />
 <br>
 </div>
 
