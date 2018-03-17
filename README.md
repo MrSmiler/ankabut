@@ -25,7 +25,7 @@ you can find files across the websites ,just give the file name to the scraper a
 <br>
 ## installation
 
-<a href='https://github.com/MrSmiler/ankabut/releases/'>download installation files</a>
+<a href='https://ankabutsc.github.io'>ankabut website</a>
 
 you can also install it with setup.py :<br>
 
