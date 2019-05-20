@@ -35,5 +35,9 @@ $ pip install pyqt5
 $ pip install bs4
 $ python setup.py install
 ```
+then execute the program 
+```
+$ python -m ankabut
+```
 
 
