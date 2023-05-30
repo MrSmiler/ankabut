@@ -1,4 +1,3 @@
-### this project is no longer maintained
 # ankabut
 <div align="center">
 <img src="https://i.imgur.com/LUHa4uV.jpg" width="400" />
